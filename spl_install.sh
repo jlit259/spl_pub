@@ -6,10 +6,13 @@
 # IMPORTANT replace <user> with username
 # IMPORTANT replace <splunk user> with splunk user
 # IMPORTANT replace </path/to/list_of_servers> with full path to list_of_server containing full Splunk instances requiring upgrade
+# IMPORTANT replace <username> with ssh username
+
 homepath="/home/<user>"
 splunk_user="<splunk user>"
 splunk_home="/opt/splunk"
 listpath="</path/to/list_of_servers>"
+user="<username>"
 
 sudo mv $homepath/splunk-9.1.1-64e843ea36b1-Linux-x86_64.tgz /opt
 $splunk_home/bin/splunk stop
@@ -31,8 +34,14 @@ $splunk_home/bin/splunk start
 
 exit
 
+# generate ssh key pair
+ssh-keygen -t rsa
+
 # upgrade the rest of the Splunk instances in the list_of_servers
 for ip in `cat $listpath/list_of_servers`; do
+
+ssh-copy-id $user@$ip
+
 ssh $ip << EOF
 
 sudo mv $homepath/splunk-9.1.1-64e843ea36b1-Linux-x86_64.tgz /opt
