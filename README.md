@@ -9,3 +9,7 @@ Description: This script takes a backup of the $SPLUNK_HOME/etc/apps/ directory 
 splunk_stage.sh <br>
 Use case: This could be used in preparation for Splunk upgrade <br>
 Description: This script requires a list of servers, which are full Splunk instances requiring upgrade. This script will download Splunk, generates SSH keys to authenticate to the instances defined in the list, and copies the downloaded Splunk to the Splunk instances in the list using scp. <br>
+
+spl_install.sh <br>
+Use case: Use to upgrade full Splunk instances across the deployment <br>
+Description: This script requires you define the variables and have a list of servers, which are full Splunk instances requiring upgrade. This script will perform local Splunk upgrade, enable Splunk to start at boot as Splunk user, and then do the same for the Splunk instances defined in list_of_server file <br>
